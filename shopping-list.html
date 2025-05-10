@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShopSmart</title>
+    <style>
+      body {
+        font-family: Cursive;
+        text-align: center;
+        color: rgb(252, 243, 207);
+        background-image: linear-gradient(
+          to right,
+          rgb(203, 111, 198),
+          rgb(202, 114, 152),
+          rgb(184, 133, 237),
+          rgb(155, 89, 182)
+        );
+        margin: 0;
+        padding: 50px;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+
+      h1,
+      h3 {
+        margin: 10px 0;
+        text-shadow: 1px 1px 4px rgb(153, 50, 204);
+      }
+
+      #InputField {
+        margin-top: 20px;
+      }
+
+      input {
+        padding: 10px 15px;
+        border: 2px solid rgb(252, 243, 207);
+        border-radius: 10px;
+        background-color: rgba(255, 255, 255, 0.1);
+        color: rgb(252, 243, 207);
+        font-family: Cursive;
+        font-size: 16px;
+        outline: none;
+        transition: all 0.3s ease;
+      }
+
+      button {
+        margin: 10px;
+        padding: 10px 15px;
+        border-radius: 10px;
+        color: rgb(252, 243, 207);
+        font-family: cursive;
+        font-size: 15px;
+        transition: all 0.3s ease;
+        box-shadow: 0px 0px 14px rgb(254, 249, 231);
+        background-color: transparent;
+        border: 2px solid rgb(252, 243, 207);
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: rgba(252, 243, 207, 0.2);
+        box-shadow: 0px 0px 20px rgb(203, 111, 198);
+      }
+
+      #currentTime {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        text-shadow: 1px 1px 2px #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ShopSmart</h1>
+    <h4>Plan It. Buy It. Done</h4>
+
+    <div id="InputField">
+      <form id="myForm">
+        <input id="myInput" type="text" placeholder="Enter Your Product" />
+        <input id="ItemQty" type="number" placeholder="Enter Quantity" />
+        <button type="submit">Add To List</button>
+      </form>
+    </div>
+
+    <ul id="myItem"></ul>
+
+    <script>
+      var myForm = document.getElementById("myForm");
+      var myInput = document.getElementById("myInput");
+      var myQty = document.getElementById("ItemQty");
+      var myItem = document.getElementById("myItem");
+
+      // Move deleteElement function outside of the event listener
+      function deleteElement(button) {
+        button.parentElement.remove();
+      }
+
+      myForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        if (myInput.value.trim() === "" || myQty.value.trim() === "") {
+          alert("Field must be filled out");
+          return;
+        }
+
+        function createItem(inputItems) {
+          var items = `<li>${inputItems}
+            <button onclick="deleteElement(this)">Delete</button></li>`;
+          myItem.insertAdjacentHTML("beforeend", items);
+          myInput.value = "";
+          myInput.focus();
+        }
+
+        // Call createItem with the input values
+        createItem(`${myInput.value} (Qty: ${myQty.value})`);
+      });
+    </script>
+  </body>
+</html>
